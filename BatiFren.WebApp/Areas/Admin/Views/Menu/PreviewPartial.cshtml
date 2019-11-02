@@ -1,0 +1,33 @@
+﻿
+@using BatiFren.Entities.EntityClasses
+@model List<Menu>
+<link href="~/Areas/Admin/Content/IstPlay/css/previewMenu.css" rel="stylesheet" />
+    <li>
+        @foreach (var menu in Model)
+        {
+            <a class="SubMenuClass">@menu.text</a>
+            if (menu.Children != null)
+            {
+                foreach (var item in menu.Children)
+                {
+                    <ul class="subUl">
+                        <li>@item.text</li>
+                        
+                    </ul>
+                }
+            }
+
+        }
+
+    </li>
+
+<style>
+
+    .subUl {
+        display: none;
+    }
+
+    a.SubMenuClass:hover + ul {
+        display: block;
+    }
+</style>

@@ -1,0 +1,83 @@
+﻿@model BatiFren.Entities.EntityClasses.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>BatiFren Admin Panel| Login</title>
+    <!-- Favicon-->
+    <link rel="icon" href="/Areas/Admin/Content/IstPlay/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core Css -->
+    <link href="/Areas/Admin/Content/IstPlay/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Waves Effect Css -->
+    <link href="/Areas/Admin/Content/IstPlay/plugins/node-waves/waves.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="/Areas/Admin/Content/IstPlay/plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="/Areas/Admin/Content/IstPlay/css/style.css" rel="stylesheet">
+</head>
+<body class="login-page">
+    <div class="login-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Admin<b>Login</b></a>
+            <small>BatiFren Admin Panel| Login</small>
+        </div>
+        <div class="card">
+            <div class="body">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                { 
+                    @Html.ValidationSummary(false)
+                <div class="msg">Sign in to start your session</div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">person</i>
+                    </span>
+                    <div class="form-line">
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "UserName" })
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">lock</i>
+                    </span>
+                    <div class="form-line">
+                        @Html.TextBoxFor(model => model.Password, new { placeholder = "Enter your Password", type = "password", @class="form-control" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8 p-t-5">    
+                        <input type="checkbox" id="rememberme" name="rememberme" class="filled-in chk-col-pink" value="true" @(Model.RememberMe ? "checked=\"checked\"" : "") />
+                        <label for="rememberme">Remember Me</label>
+                      
+                    </div>
+                    <div class="col-xs-4">
+                        <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                    </div>
+                </div>
+               
+                }
+            </div>
+        </div>
+    </div>
+    <!-- Jquery Core Js -->
+    <script src="~/Areas/Admin/Content/IstPlay/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="~/Areas/Admin/Content/IstPlay/plugins/bootstrap/js/bootstrap.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/Areas/Admin/Content/IstPlay/plugins/node-waves/waves.js"></script>
+    <!-- Validation Plugin Js -->
+    <script src="~/Areas/Admin/Content/IstPlay/plugins/jquery-validation/jquery.validate.js"></script>
+    <!-- Custom Js -->
+    <script src="~/Areas/Admin/Content/IstPlay/js/admin.js"></script>
+    <script src="~/Areas/Admin/Content/IstPlay/js/pages/examples/sign-in.js"></script>
+</body>
+</html>

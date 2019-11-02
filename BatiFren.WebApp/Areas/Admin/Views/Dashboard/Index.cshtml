@@ -1,0 +1,294 @@
+﻿@using BatiFren.Entities
+@using BatiFren.Entities.EntityClasses
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Admin/Content/IstPlay/js/jqueryRequired.min.js"></script>
+<link href="~/Areas/Admin/Content/IstPlay/css/AdminLTE.css" rel="stylesheet" />
+@{
+    BatiFren.Entities.User user = null;
+    if (Session["login"] != null)
+    {
+        user = Session["login"] as BatiFren.Entities.User;
+    }
+}
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>DASHBOARD</h2>
+    </div>
+    <!-- Widgets -->
+    <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-pink hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">playlist_add_check</i>
+                </div>
+                <div class="content">
+                    <div class="text">NEW TASKS</div>
+                    <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-light-green hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">forum</i>
+                </div>
+                <div class="content">
+                    <div class="text">NEW PAGES</div>
+                    <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-cyan hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">help</i>
+                </div>
+                <div class="content">
+                    <div class="text">NEW TICKETS</div>
+                    <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-orange hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">person_add</i>
+                </div>
+                <div class="content">
+                    <div class="text">NEW VISITORS</div>
+                    <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        PAGES
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>PageName</th>
+                                    <th>Url</th>
+                                    <th>PreDefinedID</th>
+                                    <th>IsActive</th>
+                                    <th>CreatedTime</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                    <th>Edit Content </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.Pages as List<BatiFren.Entities.Page>)
+                                {
+                                    <tr>
+                                        <td>@item.PageName</td>
+                                        <td>@item.Url</td>
+                                        <td>@item.PreDefinedID</td>
+                                        <td>@item.IsActive</td>
+                                        <td>@item.CreatedTime</td>
+                                        <td> <a href="javascript:void(null)" class="view" data-target="/Admin/Pages/EditPage/@item.PageID"><i class="glyphicon glyphicon-edit"></i> Edit</a></td>
+                                        <td> <a href="/Admin/Pages/DeletePage/@item.PageID"><i class="glyphicon glyphicon-remove"></i> Delete</a></td>
+                                        <td> <a href="/Admin/Pages/EditContent/@item.PageID"><i class="glyphicon glyphicon-edit"></i> Edit Content</a></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- #END# Chatbox -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-10">
+            <div class="box box-success">
+                <div class="box-header">
+                    <i class="fa fa-comments-o"></i>
+                    <h3 class="box-title">Chat</h3>
+
+                </div>
+                <div class="box-body chat" id="chat-box">
+                    <div id="getMessages">
+                        @if (ViewBag.GetMessages != null)
+                        {
+                            foreach (var message in ViewBag.GetMessages as List<BatiFren.Entities.Message>)
+                            {
+                                GeneralHelper help = new GeneralHelper();
+                                <div class="item">
+                                    <img src="~/Areas/Admin/Content/IstPlay/images/user.png" alt="@message.User.UserName's image" class="online">
+                                    <p class="message">
+                                        <a href="#" class="name">
+                                            @if (user.UserID == message.UserID)
+                                            {
+                                                <small class="text-muted" style="float:right; margin-left:10px" onclick="deleteMessage(@message.MessageID)"><i class="glyphicon glyphicon-remove"></i> &nbsp; &nbsp; </small>
+                                            }
+                                            <small class="text-muted pull-right"><i class="glyphicon glyphicon-time"></i> @help.GetTimeAgo(message.InsertDate.Value) </small>
+                                            @message.User.UserName (  @message.User.Role.RoleName )
+                                        </a>
+                                        @message.Text.ToString()
+                                    </p>
+                                    <!-- /.attachment -->
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <!-- /.chat -->
+                <div class="box-footer">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Type message..." name="text-message" id="text-message">
+                        <div class="input-group-btn">
+                            <button type="button" onclick="sendMessage()" class="btn btn-primary btn-sm btn-flat">Send a message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="AddPage" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Adding a page</h4><br />
+                <div class="alert alert-info">
+                    <strong>Heads up!</strong> When you create a page, the url of page is automatically defined.
+                </div>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label> Page Name </label><br />
+                        @Html.TextBox("pageName")
+                    </div>
+                    <div class="form-group">
+                        <label>PreDefinedID</label><br />
+                        @Html.TextBox("PreDefinedID")
+                    </div>
+
+                    <div class="form-group">
+                        <label> IsActivate</label><br />
+                        <label class="switch">
+                            @Html.CheckBox("IsActive")
+                            <div class="slider round">
+                            </div>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modelView" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Editing a page</h4><br />
+                <div class="alert alert-info">
+                    <strong>Heads up!</strong> You can easily edit your page.
+                </div>
+            </div>
+            <div class="modal-body">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("body").on("click", ".view", function () {
+            var url = $(this).data("target");
+            $.post(url, function (data) { })
+                .done(function (data) {
+                    $("#modelView .modal-body").html(data);
+                    $("#modelView").modal("show");
+                })
+                .fail(function () {
+                    $("#modelView .modal-body").text("Error!!");
+                    $("#modelView").modal("show");
+                })
+
+        });
+    })
+</script>
+
+@if (user != null)
+{
+    <script type="text/javascript">
+
+        function sendMessage()
+        {
+        var text = $('input[name="text-message"]').val();
+              $.ajax({
+             type: 'POST',
+             url: '@Url.Action("SendMessage", "User")',
+                  data: { senderID: @user.UserID, textMessage: text },
+                  success: function (result) {
+                      $("#getMessages").html(result);
+                      document.getElementById('text-message').value = "";
+                   },
+            error: function () {
+                   alert('Error.');
+               }
+         }).done(function () {
+            $("#thisButton").show();
+        });
+        };
+
+        function deleteMessage(messageID) {
+              $.ajax({
+             type: 'POST',
+             url: '@Url.Action("DeleteMessage", "User")',
+                  data: { msgID: messageID },
+                  success: function (result) {
+                      $("#getMessages").html(result);
+                   },
+            error: function () {
+                   alert('Error.');
+               }
+         }).done(function () {
+            $("#thisButton").show();
+        });
+        };
+
+    </script>
+}

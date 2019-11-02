@@ -1,0 +1,30 @@
+﻿@using BatiFren.Entities
+@using BatiFren.Entities.EntityClasses
+@model  List<Message>
+@{
+    BatiFren.Entities.User user = null;
+    if (Session["login"] != null)
+    {
+        user = Session["login"] as BatiFren.Entities.User;
+    }
+}
+<!-- chat item -->
+@foreach (var message in Model)
+{
+    GeneralHelper help = new GeneralHelper();
+    <div class="item">
+        <img src="~/Areas/Admin/Content/IstPlay/images/user.png" alt="@message.User.UserName's image" class="online">
+        <p class="message">
+            <a href="#" class="name">
+                @if (user.UserID == message.UserID)
+                {
+                    <small class="text-muted" style="float:right; margin-left:10px" onclick="deleteMessage(@message.MessageID)"><i class="glyphicon glyphicon-remove"></i> &nbsp; &nbsp; </small>
+                }
+                <small class="text-muted pull-right"><i class="glyphicon glyphicon-time"></i> @help.GetTimeAgo(message.InsertDate.Value) </small>
+                @message.User.UserName (  @message.User.Role.RoleName )
+            </a>
+            @message.Text.ToString()
+        </p>
+        <!-- /.attachment -->
+    </div>
+}

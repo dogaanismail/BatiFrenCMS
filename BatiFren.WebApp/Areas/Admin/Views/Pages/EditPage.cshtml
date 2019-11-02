@@ -1,0 +1,33 @@
+﻿@model BatiFren.Entities.Page
+@using (Html.BeginForm("EditPagePost", "Pages", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PageID)
+    @Html.HiddenFor(model => model.CreatedTime)
+    @Html.HiddenFor(model => model.LastModifiedTime)
+
+    <div class="form-group">
+        <label> Page Name </label><br />
+        @Html.TextBox("pageName")
+    </div>
+    <div class="form-group">
+        <label>PreDefinedID</label><br />
+        @Html.TextBox("PreDefinedID")
+    </div>
+
+    <div class="form-group">
+        <label> IsActivate</label><br />
+        <label class="switch">
+            @Html.CheckBox("IsActive")
+            <div class="slider round">
+            </div>
+        </label>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Edit</button>
+    </div>
+}
+

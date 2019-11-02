@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Areas/Admin/Content/IstPlay/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+<section ng-controller="UserCtrl">
+    <div ng-show="flgUser">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Users
+                    </h2>
+
+                    <ul class="header-dropdown m-r--5 ">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <input type="hidden" id="UserID" name="UserID" value="@ViewBag.UserID" />
+                    <div ng-show="flgMessage" id="message" class="alert alert-dismissible">
+                        <button type="button" class="close" ng-click="hideMessage()" aria-hidden="true">&times;</button>
+                        <h4><i id="icon" class="icon fa "></i> Alert!</h4>
+                        {{message}}
+                    </div>
+                    <div class="table-responsive" ng-show="flgTable ">
+                        <button type="button" class="btn btn-primary waves-effect" ng-click="addUser()" style="margin-bottom:10px"><i class="glyphicon glyphicon-plus"></i>Add a User</button>
+                        <table id="userTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Created Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in lstUsers">
+                                    <td>{{item.UserName}}</td>
+                                    <td>{{item.FirstName}} {{item.LastName}}</td>
+                                    <td>{{item.Email}}</td>
+                                    <td>{{item.CreatedDate|date}}</td>
+                                    <td>
+
+                                        <a href="#" class="btn btn-primary btn-circle" ng-click="editUser(item)" title="Edit User" data-toggle="tooltip" data-placement="top" data-original-title="Edit User">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger btn-circle" ng-click="deleteUser(item)" title="Delete User" data-toggle="tooltip" data-placement="top" data-original-title="Delete User">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="nav-tabs-custom" ng-show="!flgTable && !showCreate && showEdit">
+                        <div>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_1">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <br />
+                                            <form role="form" name="form1" id="form1" novalidate ng-submit="formSubmit()">
+                                                <!-- general form elements -->
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <h3 class="box-title">Create / Edit User</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <!-- form start -->
+
+                                                    <div class="body">
+                                                        <div class="row clearfix">
+
+                                                            <div class="col-md-6">
+
+                                                                <div class="input-group">
+                                                                    <label for="LastName">First Name</label><br />
+                                                                    <span class="input-group-addon">
+                                                                        <i class="material-icons">person</i>
+                                                                    </span>
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control date" ng-model="model.FirstName" required id="FirstName" name="FirstName" placeholder="First Name">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="input-group">
+                                                                    <label for="LastName">Last Name</label>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="material-icons">person</i>
+                                                                    </span>
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control date" ng-model="model.LastName" required id="LastName" name="LastName" placeholder="Last Name">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="input-group">
+                                                                    <label for="LastName">User Name</label>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="material-icons">person</i>
+                                                                    </span>
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control date" ng-model="model.UserName" required id="UserName" name="UserName" placeholder="User Name">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="input-group">
+                                                                    <label for="Email">Email </label>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="material-icons">email</i>
+                                                                    </span>
+
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control date" ng-model="model.Email" required id="Email" name="Email" placeholder="Email">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="input-group">
+                                                                    <label for="Role">Role</label>
+
+                                                                    <div class="form-line">
+                                                                        <select class="show-tick" required ng-model="model.RoleID">
+                                                                            <option value="">Select Role</option>
+                                                                            <option ng-repeat="item in lstRoles" value="{{item.RoleID}}">{{item.RoleName}}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        <button type="submit" ng-disabled="!form1.$valid" ng-click="createUser(model)" class="btn btn-primary">Submit</button>
+                                                        <button type="button" ng-click="reset()" class="btn btn-default">Cancel</button>
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.box -->
+                                            </form>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <br>
+                                            <!-- general form elements -->
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">Avatar</h3>
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <!-- form start -->
+                                                <div class="box-body" ng-if="!flgTable">
+                                                    <div class="box-body box-profile">
+                                                        <img id="imgs" ng-if="model.PhotoPath!=''" class="profile-user-img img-responsive img-circle" err-src="/FileUpload/UserProfile/User.jpg" style="height:100px;" ng-src="{{model.PhotoPath}}">
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                    <form id="FormUpload" name="form1">
+
+                                                        <input class="btn btn-primary col-md-12" type="file" id="imageUploadForm" name="image" onchange="imgchange(event)" multiple="multiple" /><br />
+
+                                                    </form>
+                                                </div>
+                                                <!-- /.box-body -->
+                                            </div>
+                                            <!-- /.box -->
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                    </div>
+
+
+                    <div class="nav-tabs-custom" ng-show="!flgTable && showCreate && !showEdit">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_3">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <br />
+                                        <form role="form" name="form" id="form" novalidate ng-submit="formSubmit()">
+                                            <div class="col-md-8">
+                                                <!-- general form elements -->
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <h3 class="box-title">Create / Edit a User</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <!-- form start -->
+
+                                                    <div class="body">
+                                                        <div class="row clearfix">
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <label for="LastName">First Name</label><br />
+                                                                    <span class="input-group-addon">
+                                                                        <i class="material-icons">person</i>
+                                                                    </span>
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control date" ng-model="model.FirstName" required id="FirstName" name="FirstName" placeholder="First Name">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="input-group">
+                                                                    <label for="LastName">Last Name</label>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="material-icons">person</i>
+                                                                    </span>
+                                                                    <div class="form-line">
+                                                                        <input type="text" class="form-control date" ng-model="model.LastName" required id="LastName" name="LastName" placeholder="Last Name">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="input-group">
+                                                                    <label for="Role">Role</label>
+
+                                                                    <div class="form-line">
+                                                                        <select class="show-tick" required ng-model="model.RoleID">
+                                                                            <option value="">Select Role</option>
+                                                                            <option ng-repeat="item in lstRoles" value="{{item.RoleID}}">{{item.RoleName}}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        <button type="submit" ng-disabled="!form1.$valid" ng-click="createUser(model)" class="btn btn-primary">Submit</button>
+                                                        <button type="button" ng-click="reset()" class="btn btn-default">Cancel</button>
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <!-- general form elements -->
+                                                <div class="box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <h3 class="box-title">Login Details</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <!-- form start -->
+                                                    <div class="box-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Email address</label>
+                                                            <input type="email" ng-model="model.Email" required class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="UserName">UserName</label>
+                                                            <input type="text" ng-model="model.UserName" required class="form-control" id="UserName" name="UserName" placeholder="User Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">Password</label>
+                                                            <input type="password" ng-model="model.Password" required class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword2">Confirm Password</label>
+                                                            <input type="password" ng-model="model.CPassword" required class="form-control" id="exampleInputPassword2" placeholder="Confirm Password">
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="~/Areas/Admin/Content/IstPlay/js/jqueryRequired.min.js"></script>
+<script src="~/Areas/Admin/Content/IstPlay/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Areas/Admin/Content/IstPlay/plugins/datatables/dataTables.bootstrap.min.js"></script>

@@ -1,0 +1,158 @@
+﻿@model BatiFren.Entities.PageDetail
+@{
+    ViewBag.Title = "EditContent";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Admin/Content/IstPlay/js/jqueryRequired.min.js"></script>
+
+<script src="~/Areas/Admin/Content/IstPlay/plugins/tinymce/tinymce.min.js"></script>
+<script src="~/Areas/Admin/Content/IstPlay/tinymceInit/tinyInit.js"></script>
+
+<h2>Edit Content  / <button type="button" class="btn btn-success waves-effect" onclick="window.location.href='@ViewBag.PAGE.Url'"> Go to Page</button>  </h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.PageDetail_ID)
+    @Html.HiddenFor(model => model.PageID)
+    @Html.HiddenFor(model => model.CreatedTime)
+    @Html.HiddenFor(model => model.LastModifiedTime)
+    <div class="row clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="card">
+
+                <div class="body">
+                    <h2 class="card-inside-title">Title</h2>
+                    <div class="row clearfix">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <div class="form-line focused">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        CONTENT
+                    </h2><br />
+                    <div class="alert alert-info">
+                        <small> <strong>Pay attention!</strong> You can upload easily an image file by using file manager and upload a Youtube Video by using Insert Youtube Video. </small>
+                    </div>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    @Html.TextAreaFor(model => model.Content, new { @id = "tinymce" })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        SEO DESCRIPTION
+                    </h2>
+                </div>
+
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <div class="form-line focused">
+                                    @Html.EditorFor(model => model.SeoDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SeoDescription, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row clearfix">
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        SEO KEYWORDS
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="form-group demo-tagsinput-area">
+                        <div class="form-line">
+                            @{
+                                if (Model == null)
+                                {
+                                    <input type="text" class="form-control" data-role="tagsinput" id="SeoKeywords" name="SeoKeywords" value="example">
+                                    @Html.ValidationMessageFor(model => model.SeoKeywords, "", new { @class = "text-danger" })
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" data-role="tagsinput" id="SeoKeywords" name="SeoKeywords" value="@Model.SeoKeywords">
+                                    @Html.ValidationMessageFor(model => model.SeoKeywords, "", new { @class = "text-danger" })
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="button-demo">
+            <button type="submit" class="btn btn-success waves-effect">SAVE CHANGES</button>
+            <button type="reset" class="btn btn-default waves-effect">CANCEL</button>
+        </div>
+    </div>
+
+}
+

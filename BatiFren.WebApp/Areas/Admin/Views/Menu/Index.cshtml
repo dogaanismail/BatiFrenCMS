@@ -1,0 +1,368 @@
+﻿@using BatiFren.Entities
+@model BatiFren.Entities.Page
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Areas/Admin/Content/IstPlay/js/jqueryRequired.min.js"></script>
+<link href="~/Areas/Admin/Content/IstPlay/css/switch-slider.css" rel="stylesheet" />
+
+<script>
+    $(function () {
+        $("#accordion").accordion({
+            header: "> div > h3"
+        })
+            .sortable({
+                axis: "y",
+                handle: "h3",
+                stop: function (event, ui) {
+                    ui.item.children("h3").triggerHandler("focusout");
+                    $(this).accordion("refresh");
+                }
+            });
+    });
+</script>
+
+<h2>EDITING & ADDING MENU  /  <button type="button" class="btn btn-primary waves-effect" id="view" data-toggle="modal" data-target="/Admin/Menu/PreviewMenu" style="margin-bottom:10px">Preview Menu</button>           </h2>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+
+        <div class="col-sm-5">
+            <div class="card">
+                <div id="accordion">
+                    <div class="group">
+                        <h3>PAGES</h3>
+                        <div class="body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                <li role="presentation" class="active"><a href="#news" data-toggle="tab">LATEST</a></li>
+                                <li role="presentation"><a href="#search" data-toggle="tab">SEARCH</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="news">
+                                    <fieldset>
+                                        @foreach (var item in ViewBag.latestPages)
+                                        {
+                                            <div>
+                                                <input type="checkbox" id="@item.PageID"
+                                                       value="@item.PageID" class="LatestPages" />
+                                                <label for="@item.PageID">@item.PageName</label>
+                                            </div>
+                                        }
+                                    </fieldset>
+                                    <button type="button" id="ButtonID" style="float:right">Add Menu</button>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="search">
+                                    <fieldset>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"> <i class="glyphicon glyphicon-search"></i> </span>
+                                            <input type="text" id="Search" placeholder="Search" class="form-control" onkeydown="keydown1(event);" />
+                                        </div>
+                                    </fieldset>
+                                    <table class="table table-condensed" id="pagesSearch">
+                                        <thead>
+                                            <tr>
+                                                <th>Page Name</th>
+                                                <th>Created Time </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Pages)
+                                            {
+                                                <tr class="Search">
+
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                @*<a href="javascript:void(null)" data-filename="@item.Url" class="selectButton" style="text-decoration:none"> @item.PageName </a>*@
+                                                                <div class="checkbox">
+                                                                    <input type="checkbox" id="@item.PageName" class="Spages" value="@item.PageID">
+                                                                    <label for="@item.PageName">
+                                                                        @item.PageName
+                                                                    </label>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+
+                                                    <td>
+                                                        @item.CreatedTime
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>
+                                                    <button type="button" id="buttonID" style="float:right">Add Menu</button>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <h3>CATEGORIES</h3>
+                        <div class="body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                <li role="presentation" class="active"><a href="#news2" data-toggle="tab">LATEST</a></li>
+                                <li role="presentation"><a href="#showall2" data-toggle="tab">SHOW ALL</a></li>
+                                <li role="presentation"><a href="#search2" data-toggle="tab">SEARCH</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="news2">
+                                    <b>Latest Content</b>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="showall2">
+                                    <b>Show All Content</b>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="search2">
+                                    <b>Search Content</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <h3>SPECIAL LINKS</h3>
+                        <div class="col-md-12 col-md-12 col-md-12">
+                            @using (Html.BeginForm("AddLink", "Menu", FormMethod.Post))
+                            {
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <i class="glyphicon glyphicon-link"></i>
+                                            URL
+                                        </td>
+                                        <td style="padding-left:25px">
+                                            <input type="text" placeholder="URL" id="url" name="url" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <i class="glyphicon glyphicon-italic"></i>
+                                            URL TEXT
+                                        </td>
+                                        <td style="padding-left:25px">
+                                            <input type="text" placeholder="URL TEXT" id="text" name="text" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="padding-top:15px">
+                                            <input type="submit" value="Add Menu" style="float:right" />
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Default Example -->
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        MENU
+                        <small>You can edit your menu by dragging and dropping.</small>
+                    </h2>
+
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="body">
+                    <div class="dd nestable-with-handle drag_disabled" id="nestable">
+                        @{
+                            var menusList = ViewBag.menusList as List<BatiFren.Entities.EntityClasses.Menu>;
+                            Html.RenderPartial("MenuPartial", menusList);
+                        }
+                    </div>
+
+                    <menu id="nestable-menu">
+                        <button type="button" data-action="expand-all">Expand All</button>
+                        <button type="button" data-action="collapse-all">Collapse All</button>
+                        <label>Enable Drag & Drop : </label>
+                        <label class="switch" style=" margin-bottom: -10px;">
+                            <input type="checkbox" class="" name="draggable_list" id="draggable_list" value="false" />
+                            <div class="slider round">
+                            </div>
+                        </label>
+                    </menu>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="PreviewMenu" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Preview Menu</h4><br />
+                <div class="alert alert-info">
+                    <strong>Heads up!</strong> You can easily edit your page.
+                </div>
+            </div>
+            <div class="modal-body">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#nestable').nestable({
+        }).on('dragEnd', function (event, item, source, destination, position) {
+            var parent_id = $(item).parent().parent().data('id');
+            var actual_id = $(item).data('id');
+             $.ajax({
+                    method: "POST",
+                    url: '@Url.Action("ChangeNodePosition","Menu")',
+                 data: {
+                        currentNode: actual_id,
+                        parentNode: parent_id,
+                         position: position
+                    },
+                    success: function (result) {
+                        if (result == true)
+                        {
+                            alert("Save changes are successful");
+                        }
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert("Unable to save new list order: " + jqXHR.responseText);
+                });
+        });
+
+        $('#nestable-menu').on('click', function (e) {
+            var target = $(e.target),
+                action = target.data('action');
+            if (action === 'expand-all') {
+                $('.dd').nestable('expandAll');
+            }
+            if (action === 'collapse-all') {
+                $('.dd').nestable('collapseAll');
+            }
+        });
+
+        $('#draggable_list').change(function () {
+            $('#nestable').toggleClass('drag_disabled drag_enabled');
+        });
+        $('#nestable').nestable('collapseAll');
+
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+
+
+        $("#Search").keyup(function () {
+            $("#pagesSearch").show();
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+
+        $(function () {
+            $("#pagesSearch").hide();
+        });
+    });
+    function keydown1(evt) {
+        if (evt.Contains == "") {
+            $("#pagesSearch").hide();
+        }
+    }
+
+    $('#buttonID').click(function () {
+        var PageID = [];
+        $('.Spages:checkbox:checked').each(function () {
+            PageID.push($(this).attr("value"));
+        });
+
+            $.ajax({
+                    method: "POST",
+                    url: '@Url.Action("AddMenu","Menu")',
+                data: {
+                    data: PageID
+                    },
+                    success: function (response) {
+                        if (response.result == 'Redirect')
+                            window.location = response.url;
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert("Unable to save new list order: " + jqXHR.responseText);
+                });
+    });
+
+    $('#ButtonID').click(function () {
+        var PageID = [];
+        $('.LatestPages:checkbox:checked').each(function () {
+            PageID.push($(this).attr("value"));
+        });
+
+            $.ajax({
+                    method: "POST",
+                    url: '@Url.Action("AddMenu","Menu")',
+                data: {
+                    data: PageID
+                    },
+                    success: function (response) {
+                        if (response.result == 'Redirect')
+                            window.location = response.url;
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert("Unable to save new list order: " + jqXHR.responseText);
+                });
+    });
+</script>
+
+<script>
+    $(function () {
+        $("body").on("click", "#view", function () {
+            var url = $(this).data("target");
+            $.post(url, function (data) { })
+                .done(function (data) {
+                    $("#PreviewMenu .modal-body").html(data);
+                    $("#PreviewMenu").modal("show");
+                })
+                .fail(function () {
+                    $("#PreviewMenu .modal-body").text("Error!!");
+                    $("#PreviewMenu").modal("show");
+                })
+
+        });
+    })
+</script>
+

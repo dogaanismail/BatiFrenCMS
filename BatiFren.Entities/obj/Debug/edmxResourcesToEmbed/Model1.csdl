@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BatiFrenDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BatiFrenDBEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="ModuleDeleteSortOrder" ReturnType="Collection(BatiFrenDBModel.ModuleDeleteSortOrder_Result)">
+      <Parameter Name="ModuleID" Mode="In" Type="Int32" />
+      <Parameter Name="PModuleID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ModuleInsertSortOrder">
+      <Parameter Name="ModuleID" Mode="In" Type="Int32" />
+      <Parameter Name="PModuleID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ModuleList" ReturnType="Collection(BatiFrenDBModel.ModuleList_Result)">
+      <Parameter Name="ModuleID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ModuleUpdateSortOrder">
+      <Parameter Name="OldSortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="NewSortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="ModuleID" Mode="In" Type="Int32" />
+      <Parameter Name="PModuleID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BatiFrenDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BatiFrenDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Menus" EntityType="BatiFrenDBModel.Menu" />
+    <EntitySet Name="Messages" EntityType="BatiFrenDBModel.Message" />
+    <EntitySet Name="Modules" EntityType="BatiFrenDBModel.Module" />
+    <EntitySet Name="PageDetails" EntityType="BatiFrenDBModel.PageDetail" />
+    <EntitySet Name="Pages" EntityType="BatiFrenDBModel.Page" />
+    <EntitySet Name="Roles" EntityType="BatiFrenDBModel.Role" />
+    <EntitySet Name="UserPermissions" EntityType="BatiFrenDBModel.UserPermission" />
+    <EntitySet Name="Users" EntityType="BatiFrenDBModel.User" />
+    <AssociationSet Name="FK_Menu_ParentMenu" Association="BatiFrenDBModel.FK_Menu_ParentMenu">
+      <End Role="Menu" EntitySet="Menus" />
+      <End Role="Menu1" EntitySet="Menus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_UserMessage" Association="BatiFrenDBModel.FK_Messages_UserMessage">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPermission_Modules" Association="BatiFrenDBModel.FK_UserPermission_Modules">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="UserPermission" EntitySet="UserPermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PageDetail_LastModifiedBy" Association="BatiFrenDBModel.FK_PageDetail_LastModifiedBy">
+      <End Role="User" EntitySet="Users" />
+      <End Role="PageDetail" EntitySet="PageDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PageID" Association="BatiFrenDBModel.FK_PageID">
+      <End Role="Page" EntitySet="Pages" />
+      <End Role="PageDetail" EntitySet="PageDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pages_CreatedBy" Association="BatiFrenDBModel.FK_Pages_CreatedBy">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Page" EntitySet="Pages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pages_ModifiedBy" Association="BatiFrenDBModel.FK_Pages_ModifiedBy">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Page" EntitySet="Pages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Roles_InsertBy" Association="BatiFrenDBModel.FK_Roles_InsertBy">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Roles_LastModifiedBy" Association="BatiFrenDBModel.FK_Roles_LastModifiedBy">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPermission_Roles" Association="BatiFrenDBModel.FK_UserPermission_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserPermission" EntitySet="UserPermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_UserRole" Association="BatiFrenDBModel.FK_Users_UserRole">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="ModuleDeleteSortOrder_Result">
+    <Property Type="Int32" Name="ModuleID" Nullable="false" />
+    <Property Type="Int32" Name="DisplayOrder" Nullable="true" />
+    <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="PageIcon" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="PageUrl" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="PageSlug" Nullable="true" MaxLength="75" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="true" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+    <Property Type="Boolean" Name="IsDefault" Nullable="true" />
+    <Property Type="Int32" Name="ParentModuleID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ModuleList_Result">
+    <Property Type="Int32" Name="ModuleID" Nullable="true" />
+    <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="75" />
+    <Property Type="String" Name="FullName" Nullable="true" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="OrderNumber" Type="Int32" />
+    <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Menu1" Relationship="BatiFrenDBModel.FK_Menu_ParentMenu" FromRole="Menu" ToRole="Menu1" />
+    <NavigationProperty Name="Menu2" Relationship="BatiFrenDBModel.FK_Menu_ParentMenu" FromRole="Menu1" ToRole="Menu" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="MessageID" />
+    </Key>
+    <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="InsertDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="BatiFrenDBModel.FK_Messages_UserMessage" FromRole="Message" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DisplayOrder" Type="Int32" />
+    <Property Name="ModuleName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="PageIcon" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="PageUrl" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="PageSlug" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <Property Name="ParentModuleID" Type="Int32" />
+    <NavigationProperty Name="UserPermissions" Relationship="BatiFrenDBModel.FK_UserPermission_Modules" FromRole="Module" ToRole="UserPermission" />
+  </EntityType>
+  <EntityType Name="PageDetail">
+    <Key>
+      <PropertyRef Name="PageDetail_ID" />
+    </Key>
+    <Property Name="PageDetail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SeoKeywords" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+    <Property Name="SeoDescription" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+    <Property Name="PageID" Type="Int32" />
+    <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedTime" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedBy" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="BatiFrenDBModel.FK_PageDetail_LastModifiedBy" FromRole="PageDetail" ToRole="User" />
+    <NavigationProperty Name="Page" Relationship="BatiFrenDBModel.FK_PageID" FromRole="PageDetail" ToRole="Page" />
+  </EntityType>
+  <EntityType Name="Page">
+    <Key>
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PreDefinedID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedTime" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="LastModifiedBy" Type="Int32" />
+    <NavigationProperty Name="PageDetails" Relationship="BatiFrenDBModel.FK_PageID" FromRole="Page" ToRole="PageDetail" />
+    <NavigationProperty Name="User" Relationship="BatiFrenDBModel.FK_Pages_CreatedBy" FromRole="Page" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="BatiFrenDBModel.FK_Pages_ModifiedBy" FromRole="Page" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="DisplayName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <Property Name="InsertBy" Type="Int32" />
+    <Property Name="InsertDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="LastModifiedBy" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="BatiFrenDBModel.FK_Roles_InsertBy" FromRole="Role" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="BatiFrenDBModel.FK_Roles_LastModifiedBy" FromRole="Role" ToRole="User" />
+    <NavigationProperty Name="UserPermissions" Relationship="BatiFrenDBModel.FK_UserPermission_Roles" FromRole="Role" ToRole="UserPermission" />
+    <NavigationProperty Name="Users" Relationship="BatiFrenDBModel.FK_Users_UserRole" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UserPermission">
+    <Key>
+      <PropertyRef Name="UserPermissionID" />
+    </Key>
+    <Property Name="UserPermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="ModuleID" Type="Int32" />
+    <NavigationProperty Name="Module" Relationship="BatiFrenDBModel.FK_UserPermission_Modules" FromRole="UserPermission" ToRole="Module" />
+    <NavigationProperty Name="Role" Relationship="BatiFrenDBModel.FK_UserPermission_Roles" FromRole="UserPermission" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhotoPath" Type="String" MaxLength="175" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="175" FixedLength="false" Unicode="true" />
+    <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Messages" Relationship="BatiFrenDBModel.FK_Messages_UserMessage" FromRole="User" ToRole="Message" />
+    <NavigationProperty Name="PageDetails" Relationship="BatiFrenDBModel.FK_PageDetail_LastModifiedBy" FromRole="User" ToRole="PageDetail" />
+    <NavigationProperty Name="Pages" Relationship="BatiFrenDBModel.FK_Pages_CreatedBy" FromRole="User" ToRole="Page" />
+    <NavigationProperty Name="Pages1" Relationship="BatiFrenDBModel.FK_Pages_ModifiedBy" FromRole="User" ToRole="Page" />
+    <NavigationProperty Name="Roles" Relationship="BatiFrenDBModel.FK_Roles_InsertBy" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="Roles1" Relationship="BatiFrenDBModel.FK_Roles_LastModifiedBy" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="Role" Relationship="BatiFrenDBModel.FK_Users_UserRole" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Menu_ParentMenu">
+    <End Type="BatiFrenDBModel.Menu" Role="Menu" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.Menu" Role="Menu1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="Menu1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_UserMessage">
+    <End Type="BatiFrenDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPermission_Modules">
+    <End Type="BatiFrenDBModel.Module" Role="Module" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.UserPermission" Role="UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PageDetail_LastModifiedBy">
+    <End Type="BatiFrenDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.PageDetail" Role="PageDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="PageDetail">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PageID">
+    <End Type="BatiFrenDBModel.Page" Role="Page" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.PageDetail" Role="PageDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Page">
+        <PropertyRef Name="PageID" />
+      </Principal>
+      <Dependent Role="PageDetail">
+        <PropertyRef Name="PageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pages_CreatedBy">
+    <End Type="BatiFrenDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.Page" Role="Page" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Page">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pages_ModifiedBy">
+    <End Type="BatiFrenDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.Page" Role="Page" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Page">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Roles_InsertBy">
+    <End Type="BatiFrenDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.Role" Role="Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Role">
+        <PropertyRef Name="InsertBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Roles_LastModifiedBy">
+    <End Type="BatiFrenDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.Role" Role="Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Role">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPermission_Roles">
+    <End Type="BatiFrenDBModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.UserPermission" Role="UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_UserRole">
+    <End Type="BatiFrenDBModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="BatiFrenDBModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

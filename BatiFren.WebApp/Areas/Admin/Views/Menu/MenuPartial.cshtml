@@ -1,0 +1,17 @@
+﻿@using BatiFren.Entities.EntityClasses
+@model List<Menu>
+
+
+<ol class="dd-list">
+    @foreach (var item in Model)
+    {
+        <li class="dd-item dd3-item" data-id="@item.id">
+            <div class="dd-handle dd3-handle"></div>
+            <div class="dd3-content">@item.text     <i style="float:right; margin-left:10px" class="glyphicon glyphicon-edit">Edit</i>  <i style="float:right">@item.type</i>  </div>
+            @if (item.Children != null)
+            {
+                Html.RenderPartial("MenuPartial", item.Children);
+            }
+        </li>
+    }
+</ol>

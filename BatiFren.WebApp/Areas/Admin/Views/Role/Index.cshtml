@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Areas/Admin/Content/IstPlay/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+<section ng-controller="RoleCtrl">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Roles
+                </h2>
+
+                <ul class="header-dropdown m-r--5 ">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);">Action</a></li>
+                            <li><a href="javascript:void(0);">Another action</a></li>
+                            <li><a href="javascript:void(0);">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div ng-show="flgMessage" id="message" class="alert alert-dismissible">
+                    <button type="button" class="close" ng-click="hideMessage()" aria-hidden="true">&times;</button>
+                    <h4><i id="icon" class="icon fa "></i> Alert!</h4>
+                    {{message}}
+                </div>
+                <div class="table-responsive" ng-show="flgTable ">
+                    <button type="button" class="btn btn-primary waves-effect" ng-click="addRole()" style="margin-bottom:10px"><i class="glyphicon glyphicon-plus"></i>Add a Role</button>
+                    <table id="roleTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Role Name</th>
+                                <th>Display Name</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in lstRoles">
+                                <td>{{item.RoleName}}</td>
+                                <td>{{item.DisplayName}}</td>
+                                <td>{{item.InsertDate|date}}</td>
+                                <td>
+
+                                    <a href="#" class="btn btn-primary btn-circle" ng-click="editRole(item)" title="" data-toggle="tooltip" data-placement="top" data-original-title="Edit Role">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-circle" ng-click="deleteRole(item)" title="" data-toggle="tooltip" data-placement="top" data-original-title="Delete Role">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="nav-tabs-custom" ng-show="!flgTable">
+                    <ul class="nav nav-tabs">
+                        <li id="liTab_1" class="active"><a href="#tab_1" data-toggle="tab">Role Create/Update</a></li>
+                        <li id="liTab_2"><a href="#tab_2" data-toggle="tab">Role Permission</a></li>
+
+                        <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <form role="form" id="form1" name="form1" novalidate ng-submit="formSubmit()">
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Name">Role Name</label>
+                                                <input type="text" ng-model="model.RoleName" required class="form-control" id="Name" placeholder="Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="DisplayName">Display Name</label>
+                                                <input type="text" class="form-control" required ng-model="model.DisplayName" id="DisplayName" placeholder="Display name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Description">Description</label>
+                                                <textarea class="form-control" rows="3" ng-model="model.Description" placeholder="Description ..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="button" ng-disabled="!form1.$valid" ng-click="setPermission(model)" class="btn btn-primary">Set Permission</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_2">
+                            <form role="form" id="form" name="form" novalidate ng-submit="formSubmit()">
+                                <div class="box-body">
+                                    <label for="Role Permission">Role Permission</label>
+                                    <div>
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="item in lstModule">
+                                                <input type="checkbox" id="{{item.ModuleID}}" value="{{item}}" checklist-model="checkedModule.module" checklist-value="item" />
+                                                <label for="{{item.ModuleID}}">{{item.ModuleName}}</label>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" ng-disabled="!form1.$valid" ng-click="createRolePermission(checkedModule.module)" class="btn btn-primary">Submit</button>
+                                    <button type="button" ng-click="reset()" class="btn btn-default">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
+<script src="~/Areas/Admin/Content/IstPlay/js/jqueryRequired.min.js"></script>
+
+<script src="~/Areas/Admin/Content/IstPlay/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Areas/Admin/Content/IstPlay/plugins/datatables/dataTables.bootstrap.min.js"></script>
+

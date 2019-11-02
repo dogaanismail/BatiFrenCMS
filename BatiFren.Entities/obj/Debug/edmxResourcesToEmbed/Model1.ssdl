@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BatiFrenDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParentID" Type="int" />
+    <Property Name="OrderNumber" Type="int" />
+    <Property Name="Url" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="MessageID" />
+    </Key>
+    <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar" MaxLength="512" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="InsertDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Modules">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayOrder" Type="int" />
+    <Property Name="ModuleName" Type="nvarchar" MaxLength="75" />
+    <Property Name="PageIcon" Type="nvarchar" MaxLength="75" />
+    <Property Name="PageUrl" Type="nvarchar" MaxLength="75" />
+    <Property Name="PageSlug" Type="nvarchar" MaxLength="75" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsDefault" Type="bit" />
+    <Property Name="ParentModuleID" Type="int" />
+  </EntityType>
+  <EntityType Name="PageDetail">
+    <Key>
+      <PropertyRef Name="PageDetail_ID" />
+    </Key>
+    <Property Name="PageDetail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Title" Type="nvarchar" MaxLength="150" />
+    <Property Name="SeoKeywords" Type="nvarchar" MaxLength="160" />
+    <Property Name="SeoDescription" Type="nvarchar" MaxLength="160" />
+    <Property Name="PageID" Type="int" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="LastModifiedTime" Type="datetime" />
+    <Property Name="LastModifiedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Pages">
+    <Key>
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="PageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PageName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Url" Type="nvarchar" MaxLength="50" />
+    <Property Name="PreDefinedID" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedTime" Type="datetime" />
+    <Property Name="LastModifiedTime" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="LastModifiedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="75" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="75" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="IsDefault" Type="bit" />
+    <Property Name="InsertBy" Type="int" />
+    <Property Name="InsertDate" Type="datetime" />
+    <Property Name="LastModifiedDate" Type="datetime" />
+    <Property Name="LastModifiedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="UserPermission">
+    <Key>
+      <PropertyRef Name="UserPermissionID" />
+    </Key>
+    <Property Name="UserPermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="ModuleID" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PhotoPath" Type="nvarchar" MaxLength="175" />
+    <Property Name="Email" Type="nvarchar" MaxLength="70" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="70" />
+    <Property Name="Password" Type="nvarchar" MaxLength="175" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Menu_ParentMenu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+    <End Role="Menu1" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="Menu1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_UserMessage">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PageDetail_LastModifiedBy">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="PageDetail" Type="Self.PageDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="PageDetail">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PageID">
+    <End Role="Pages" Type="Self.Pages" Multiplicity="0..1" />
+    <End Role="PageDetail" Type="Self.PageDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pages">
+        <PropertyRef Name="PageID" />
+      </Principal>
+      <Dependent Role="PageDetail">
+        <PropertyRef Name="PageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pages_CreatedBy">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Pages" Type="Self.Pages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Pages">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pages_ModifiedBy">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Pages" Type="Self.Pages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Pages">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Roles_InsertBy">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="InsertBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Roles_LastModifiedBy">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="LastModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPermission_Modules">
+    <End Role="Modules" Type="Self.Modules" Multiplicity="0..1" />
+    <End Role="UserPermission" Type="Self.UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPermission_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="UserPermission" Type="Self.UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_UserRole">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="ModuleDeleteSortOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ModuleID" Type="int" Mode="In" />
+    <Parameter Name="PModuleID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ModuleInsertSortOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ModuleID" Type="int" Mode="In" />
+    <Parameter Name="PModuleID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ModuleList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ModuleID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ModuleUpdateSortOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OldSortOrder" Type="int" Mode="In" />
+    <Parameter Name="NewSortOrder" Type="int" Mode="In" />
+    <Parameter Name="ModuleID" Type="int" Mode="In" />
+    <Parameter Name="PModuleID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="BatiFrenDBModelStoreContainer">
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PageDetail" EntityType="Self.PageDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserPermission" EntityType="Self.UserPermission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Menu_ParentMenu" Association="Self.FK_Menu_ParentMenu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="Menu1" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_UserMessage" Association="Self.FK_Messages_UserMessage">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PageDetail_LastModifiedBy" Association="Self.FK_PageDetail_LastModifiedBy">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PageDetail" EntitySet="PageDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PageID" Association="Self.FK_PageID">
+      <End Role="Pages" EntitySet="Pages" />
+      <End Role="PageDetail" EntitySet="PageDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pages_CreatedBy" Association="Self.FK_Pages_CreatedBy">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Pages" EntitySet="Pages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pages_ModifiedBy" Association="Self.FK_Pages_ModifiedBy">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Pages" EntitySet="Pages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Roles_InsertBy" Association="Self.FK_Roles_InsertBy">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Roles_LastModifiedBy" Association="Self.FK_Roles_LastModifiedBy">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPermission_Modules" Association="Self.FK_UserPermission_Modules">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="UserPermission" EntitySet="UserPermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPermission_Roles" Association="Self.FK_UserPermission_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserPermission" EntitySet="UserPermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_UserRole" Association="Self.FK_Users_UserRole">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

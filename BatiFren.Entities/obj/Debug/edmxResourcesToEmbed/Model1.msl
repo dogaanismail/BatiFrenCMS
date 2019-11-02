@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BatiFrenDBModelStoreContainer" CdmEntityContainer="BatiFrenDBEntities">
+    <FunctionImportMapping FunctionImportName="ModuleDeleteSortOrder" FunctionName="BatiFrenDBModel.Store.ModuleDeleteSortOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BatiFrenDBModel.ModuleDeleteSortOrder_Result">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="PageIcon" ColumnName="PageIcon" />
+          <ScalarProperty Name="PageUrl" ColumnName="PageUrl" />
+          <ScalarProperty Name="PageSlug" ColumnName="PageSlug" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="ParentModuleID" ColumnName="ParentModuleID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ModuleInsertSortOrder" FunctionName="BatiFrenDBModel.Store.ModuleInsertSortOrder" />
+    <FunctionImportMapping FunctionImportName="ModuleList" FunctionName="BatiFrenDBModel.Store.ModuleList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BatiFrenDBModel.ModuleList_Result">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ModuleUpdateSortOrder" FunctionName="BatiFrenDBModel.Store.ModuleUpdateSortOrder" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BatiFrenDBModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BatiFrenDBModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="BatiFrenDBModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="BatiFrenDBModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BatiFrenDBModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="BatiFrenDBModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BatiFrenDBModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BatiFrenDBModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BatiFrenDBModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.Menu">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.Message">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.Module">
+        <MappingFragment StoreEntitySet="Modules">
+          <ScalarProperty Name="ParentModuleID" ColumnName="ParentModuleID" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="PageSlug" ColumnName="PageSlug" />
+          <ScalarProperty Name="PageUrl" ColumnName="PageUrl" />
+          <ScalarProperty Name="PageIcon" ColumnName="PageIcon" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PageDetails">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.PageDetail">
+        <MappingFragment StoreEntitySet="PageDetail">
+          <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+          <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="SeoDescription" ColumnName="SeoDescription" />
+          <ScalarProperty Name="SeoKeywords" ColumnName="SeoKeywords" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="PageDetail_ID" ColumnName="PageDetail_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pages">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.Page">
+        <MappingFragment StoreEntitySet="Pages">
+          <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="LastModifiedTime" ColumnName="LastModifiedTime" />
+          <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PreDefinedID" ColumnName="PreDefinedID" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+          <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="InsertBy" ColumnName="InsertBy" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPermissions">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.UserPermission">
+        <MappingFragment StoreEntitySet="UserPermission">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserPermissionID" ColumnName="UserPermissionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="BatiFrenDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

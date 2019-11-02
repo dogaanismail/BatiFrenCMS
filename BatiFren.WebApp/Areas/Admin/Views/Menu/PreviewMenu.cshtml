@@ -1,0 +1,6 @@
+﻿<ul>
+    @{
+        var menusList = ViewBag.menusList as List<BatiFren.Entities.EntityClasses.Menu>;
+        Html.RenderPartial("PreviewPartial", menusList);
+    }
+    </ul>
